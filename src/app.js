@@ -12,6 +12,10 @@ app.use(express.json());
 app.use("/auth", authRoutes);
 app.use("/blogs", blogRoutes);
 
+app.get("/", (req, res) => {
+  res.send("Backend is running");
+});
+
 app.use(errorHandler);
 
 module.exports = app;
