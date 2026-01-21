@@ -4,18 +4,19 @@ let isConnected = false;
 
 const connectDB = async () => {
   if (isConnected) {
+    console.log("MongoDB already connected");
     return;
   }
 
   try {
-    await mongoose.connect(process.env.MONGO_URI, {
-      bufferCommands: false
+    const conn = await mongoose.connect(process.env.MONGO_URI, {
+      serverSelectionTimeoutMS: 5000,
     });
 
     isConnected = true;
-    console.log("MongoDB connected");
+    console.log("MongoDB connected:", conn.connection.host);
   } catch (error) {
-    console.error("MongoDB connection failed:", error);
+    console.error("MongoDB connection error:", error.message);
     throw error;
   }
 };

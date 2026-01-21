@@ -3,11 +3,14 @@ const cors = require("cors");
 const authRoutes = require("./routes/auth.routes");
 const blogRoutes = require("./routes/blog.routes");
 const errorHandler = require("./middleware/error.middleware");
+const connectDB = require("./config/db");
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+connectDB();
 
 app.use("/auth", authRoutes);
 app.use("/blogs", blogRoutes);
